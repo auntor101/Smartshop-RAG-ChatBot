@@ -10,7 +10,7 @@ ShopSmart BD is a domain-specific AI customer support chatbot for a fictional Ba
 
 2. The first run creates `.env` from `.env.example` if it is missing. Edit `.env` and set a real **`GROQ_API_KEY`** (default `LLM_PROVIDER=groq`), or switch to OpenAI/Ollama per `.env.example`.
 
-3. Open **http://localhost:8501** for the chatbot. The ShopSmart docs under `data/shopsmart_docs` are auto-indexed when the vector store is empty.
+3. Open **http://localhost:8501** for the chatbot. Use **Load ShopSmart Knowledge Base** in the sidebar to index the bundled docs, or set `AUTO_INGEST_ON_STARTUP=true` in `.env` if you want this to happen before first render.
 
 Manual equivalent:
 
@@ -79,7 +79,17 @@ Start the Streamlit app:
 streamlit run app.py
 ```
 
-Open `http://localhost:8501`. The bundled ShopSmart knowledge base is **auto-loaded** when the vector store is empty; you can still use **Load ShopSmart Knowledge Base** in the sidebar to re-index. Then ask questions such as "What is your return policy?"
+Open `http://localhost:8501`. Use **Load ShopSmart Knowledge Base** in the sidebar to index the bundled docs. Then ask questions such as "What is your return policy?"
+
+### Streamlit Community Cloud
+
+Use these app settings:
+
+- Repository: `auntor101/Smartshop-RAG-ChatBot`
+- Branch: `main`
+- Main file path: `app.py`
+
+Add `GROQ_API_KEY` in **App settings → Secrets**. Keep `AUTO_INGEST_ON_STARTUP=false` on Community Cloud so the page renders before heavy embedding work starts.
 
 ### REST API (local)
 

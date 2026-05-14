@@ -270,20 +270,22 @@ def render_chat() -> None:
 def main() -> None:
     init_session_state()
     boot_error = ""
-    try:
-        # First cold start downloads the embedding model; show feedback without
-        # blocking the rest of the app on subsequent runs (count uses Chroma only).
-        if count_documents() == 0 and SHOPSMART_DOCS_DIR.exists():
-            with st.spinner(
-                "Preparing the knowledge base — first launch can take 1–2 minutes "
-                "while the embedding model loads…"
-            ):
+    settings = get_settings()
+    if settings.auto_ingest_on_startup:
+        try:
+            # First cold start downloads the embedding model; keep this opt-in
+            # so Streamlit Cloud can render the page before heavy indexing work.
+            if count_documents() == 0 and SHOPSMART_DOCS_DIR.exists():
+                with st.spinner(
+                    "Preparing the knowledge base — first launch can take 1–2 minutes "
+                    "while the embedding model loads…"
+                ):
+                    _boot_knowledge_base()
+            else:
                 _boot_knowledge_base()
-        else:
-            _boot_knowledge_base()
-    except Exception as exc:  # noqa: BLE001
-        logging.getLogger(__name__).warning("Auto-ingest failed: %s", exc)
-        boot_error = str(exc)
+        except Exception as exc:  # noqa: BLE001
+            logging.getLogger(__name__).warning("Auto-ingest failed: %s", exc)
+            boot_error = str(exc)
     render_sidebar()
     if boot_error:
         st.error(

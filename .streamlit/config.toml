@@ -3,5 +3,5 @@
 gatherUsageStats = false
 
 [server]
-# false = try to open a browser when you run Streamlit locally (Docker overrides with --server.headless=true).
-headless = false
+# Safe default for Streamlit Community Cloud. Local scripts override this.
+headless = true

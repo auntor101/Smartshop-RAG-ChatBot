@@ -68,6 +68,13 @@ class Settings(BaseSettings):
             "(chat-only public UI)."
         ),
     )
+    auto_ingest_on_startup: bool = Field(
+        default=False,
+        description=(
+            "If True, Streamlit indexes the bundled KB before first render. "
+            "Keep False on Streamlit Cloud so cold starts do not time out."
+        ),
+    )
     allowed_origins: str = Field(
         default="",
         description="Comma-separated CORS origins; empty means allow all (*).",
