@@ -46,9 +46,33 @@ def test_status_returns_config(client: TestClient) -> None:
     assert isinstance(body["vectors_count"], int)
 
 
-def test_ingest_files_rejects_unsupported_extension(client: TestClient) -> None:
+def test_status_requires_bearer_when_api_token_set(monkeypatch, client: TestClient) -> None:
+    monkeypatch.setenv("API_TOKEN", "secret-token")
+    from src.config import reset_settings
+
+    reset_settings()
+    assert client.get("/status").status_code == 401
+    r = client.get(
+        "/status",
+        headers={"Authorization": "Bearer secret-token"},
+    )
+    assert r.status_code == 200
+
+
+def test_ingest_files_requires_bearer_when_api_token_set(monkeypatch, client: TestClient) -> None:
+    monkeypatch.setenv("API_TOKEN", "secret-token")
+    from src.config import reset_settings
+
+    reset_settings()
     response = client.post(
         "/ingest/files",
+        files=[("files", ("a.txt", BytesIO(b"hello"), "text/plain"))],
+    )
+    assert response.status_code == 401
+    auth = {"Authorization": "Bearer secret-token"}
+    response = client.post(
+        "/ingest/files",
+        headers=auth,
         files=[("files", ("evil.exe", BytesIO(b"MZ\x90\x00"), "application/octet-stream"))],
     )
     assert response.status_code == 400
