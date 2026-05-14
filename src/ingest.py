@@ -8,6 +8,7 @@ from typing import Iterable
 
 from langchain_core.documents import Document
 
+from .config import get_settings
 from .document_loader import (
     SUPPORTED_EXTENSIONS,
     load_directory,
@@ -18,6 +19,23 @@ from .text_splitter import split_documents
 from .vector_store import add_documents
 
 logger = logging.getLogger(__name__)
+
+
+def sanitize_upload_filename(filename: str) -> str:
+    """Return a single-segment safe filename; raise ValueError if invalid."""
+    if not filename or not str(filename).strip():
+        raise ValueError("Filename is required.")
+    base = Path(filename).name
+    if not base or base in {".", ".."}:
+        raise ValueError("Invalid filename.")
+    if "\x00" in base:
+        raise ValueError("Invalid filename.")
+    suffix = Path(base).suffix.lower()
+    if suffix not in SUPPORTED_EXTENSIONS:
+        raise ValueError(
+            f"Unsupported file '{filename}'. Allowed: {sorted(SUPPORTED_EXTENSIONS)}"
+        )
+    return base
 
 
 def ingest_path(path: str | Path) -> int:
@@ -41,16 +59,23 @@ def ingest_uploaded_file(filename: str, raw_bytes: bytes, save_dir: str | Path) 
 
     Useful for the Streamlit UI where users upload via ``st.file_uploader``.
     """
+    settings = get_settings()
+    if len(raw_bytes) > settings.max_upload_bytes:
+        raise ValueError(
+            f"File exceeds maximum size of {settings.max_upload_bytes} bytes."
+        )
+
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    suffix = Path(filename).suffix.lower()
-    if suffix not in SUPPORTED_EXTENSIONS:
-        raise ValueError(
-            f"Unsupported file '{filename}'. Allowed: {sorted(SUPPORTED_EXTENSIONS)}"
-        )
+    safe_name = sanitize_upload_filename(filename)
+    save_resolved = save_dir.resolve()
+    file_path = (save_resolved / safe_name).resolve()
+    try:
+        file_path.relative_to(save_resolved)
+    except ValueError as exc:
+        raise ValueError("Invalid file path.") from exc
 
-    file_path = save_dir / filename
     file_path.write_bytes(raw_bytes)
     return ingest_path(file_path)
 

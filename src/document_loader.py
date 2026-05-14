@@ -6,7 +6,6 @@ import logging
 from pathlib import Path
 from typing import Iterable
 
-import requests
 from bs4 import BeautifulSoup
 from langchain_community.document_loaders import (
     Docx2txtLoader,
@@ -14,6 +13,8 @@ from langchain_community.document_loaders import (
     TextLoader,
 )
 from langchain_core.documents import Document
+
+from .url_security import fetch_url_bytes
 
 logger = logging.getLogger(__name__)
 
@@ -66,25 +67,21 @@ def load_directory(directory: str | Path) -> list[Document]:
 
 def load_url(url: str, timeout: int = 30) -> list[Document]:
     """Fetch a URL and extract clean text."""
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (compatible; RAGBot/1.0; +https://example.com/bot)"
-        )
-    }
-    response = requests.get(url, headers=headers, timeout=timeout)
-    response.raise_for_status()
+    del timeout  # enforced via settings in fetch_url_bytes
+    raw, final_url = fetch_url_bytes(url)
+    text_html = raw.decode("utf-8", errors="replace")
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    soup = BeautifulSoup(text_html, "html.parser")
     for tag in soup(["script", "style", "noscript", "header", "footer", "nav"]):
         tag.decompose()
 
     text = "\n".join(line.strip() for line in soup.get_text().splitlines() if line.strip())
-    title = soup.title.string.strip() if soup.title and soup.title.string else url
+    title = soup.title.string.strip() if soup.title and soup.title.string else final_url
 
     return [
         Document(
             page_content=text,
-            metadata={"source": url, "source_type": "url", "title": title},
+            metadata={"source": final_url, "source_type": "url", "title": title},
         )
     ]
 
