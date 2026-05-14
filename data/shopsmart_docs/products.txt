@@ -1,0 +1,41 @@
+ShopSmart BD Product Catalog
+
+1. Product Name: SmartX Nova 5G Phone | Price (BDT): 24990 | Category: Electronics | Description: A lightweight Android smartphone with a bright AMOLED display, 128 GB storage, and all-day battery life. It is suitable for everyday browsing, mobile photography, and streaming. | Stock Status: In stock | Warranty: 6 months
+
+2. Product Name: BeatPro Wireless Earbuds | Price (BDT): 3490 | Category: Electronics | Description: Compact wireless earbuds with touch controls, clear call quality, and up to 24 hours total playback with the charging case. The earbuds include sweat resistance for commuting and workouts. | Stock Status: Low stock - 3 left | Warranty: 6 months
+
+3. Product Name: VoltMate 20000mAh Power Bank | Price (BDT): 2190 | Category: Electronics | Description: A high-capacity power bank with dual USB output and fast charging support for phones and accessories. Its slim body makes it easy to carry during travel. | Stock Status: In stock | Warranty: 6 months
+
+4. Product Name: HomeView HD Security Camera | Price (BDT): 4590 | Category: Electronics | Description: An indoor Wi-Fi security camera with 1080p video, night vision, motion alerts, and two-way audio. It works well for monitoring homes, shops, and small offices. | Stock Status: Out of stock | Warranty: 6 months
+
+5. Product Name: Type-C Braided Fast Cable | Price (BDT): 390 | Category: Electronics | Description: A durable braided Type-C cable for charging and data transfer. Reinforced connectors help reduce fraying during daily use. | Stock Status: In stock | Warranty: 1 month
+
+6. Product Name: Dhaka Denim Classic Jacket | Price (BDT): 1890 | Category: Fashion | Description: A medium-weight denim jacket with button closure and two chest pockets. It pairs well with casual outfits in mild weather. | Stock Status: Low stock - 4 left | Warranty: No warranty
+
+7. Product Name: Cotton Comfort Panjabi | Price (BDT): 1450 | Category: Fashion | Description: A breathable cotton panjabi designed for festivals, office events, and casual gatherings. It has a regular fit with subtle embroidered detailing. | Stock Status: In stock | Warranty: No warranty
+
+8. Product Name: UrbanWalk Sneakers | Price (BDT): 2290 | Category: Fashion | Description: Lightweight everyday sneakers with cushioned soles and a knitted upper. They are built for walking, commuting, and casual wear. | Stock Status: In stock | Warranty: No warranty
+
+9. Product Name: MonsoonShield Rain Jacket | Price (BDT): 1690 | Category: Fashion | Description: A water-resistant rain jacket with adjustable hood and zip pockets. It is ideal for rainy-season commutes and light outdoor use. | Stock Status: Out of stock | Warranty: No warranty
+
+10. Product Name: Premium Leather Wallet | Price (BDT): 890 | Category: Fashion | Description: A slim wallet made with genuine leather and multiple card slots. It includes a cash compartment while keeping a compact profile. | Stock Status: Low stock - 2 left | Warranty: 1 month
+
+11. Product Name: ChefMate Nonstick Fry Pan 28cm | Price (BDT): 1290 | Category: Home & Kitchen | Description: A nonstick frying pan with even heat distribution and a comfortable stay-cool handle. It is suitable for eggs, vegetables, fish, and low-oil cooking. | Stock Status: In stock | Warranty: 1 month
+
+12. Product Name: FreshSeal Glass Food Container Set | Price (BDT): 1590 | Category: Home & Kitchen | Description: A set of microwave-safe glass containers with leak-resistant lids. The containers help store leftovers, meal prep, and dry snacks neatly. | Stock Status: In stock | Warranty: 1 month
+
+13. Product Name: AromaBrew Electric Kettle | Price (BDT): 1790 | Category: Home & Kitchen | Description: A stainless steel electric kettle with auto shut-off and boil-dry protection. It quickly heats water for tea, coffee, noodles, and baby food preparation. | Stock Status: Low stock - 1 left | Warranty: 6 months
+
+14. Product Name: CozyCloud Microfiber Pillow Pair | Price (BDT): 1190 | Category: Home & Kitchen | Description: Soft microfiber pillows designed for comfortable neck support and daily sleeping use. The outer cover is breathable and easy to maintain. | Stock Status: Out of stock | Warranty: No warranty
+
+15. Product Name: BrightHome LED Desk Lamp | Price (BDT): 990 | Category: Home & Kitchen | Description: A compact LED desk lamp with adjustable brightness and a flexible neck. It is useful for study desks, bedside tables, and office corners. | Stock Status: In stock | Warranty: 6 months
+
+16. Product Name: FitFlex Yoga Mat 6mm | Price (BDT): 850 | Category: Sports | Description: A cushioned yoga mat with textured grip for stretching, yoga, and floor exercises. It rolls up easily for storage and transport. | Stock Status: In stock | Warranty: 1 month
+
+17. Product Name: ProKick Football Size 5 | Price (BDT): 1190 | Category: Sports | Description: A durable size 5 football designed for practice sessions and casual matches. The textured outer surface improves control on grass and turf. | Stock Status: Low stock - 4 left | Warranty: 1 month
+
+18. Product Name: ActiveRun Sports Bottle 1L | Price (BDT): 490 | Category: Sports | Description: A reusable 1 liter sports bottle with a flip-top lid and carry strap. It is suitable for gym, school, office, and outdoor activities. | Stock Status: In stock | Warranty: 1 month
+
+19. Product Name: Startup Stories Bangladesh | Price (BDT): 650 | Category: Books | Description: A nonfiction book featuring fictional founder journeys, business lessons, and local market insights. It is written for students, entrepreneurs, and startup enthusiasts. | Stock Status: In stock | Warranty: No warranty
+
+20. Product Name: Kids Science Activity Book | Price (BDT): 420 | Category: Books | Description: A colorful activity book with simple experiments, puzzles, and science facts for children. It encourages curiosity through hands-on learning at home. | Stock Status: Out of stock | Warranty: No warranty
