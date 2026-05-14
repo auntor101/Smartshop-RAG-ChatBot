@@ -5,3 +5,6 @@ gatherUsageStats = false
 [server]
 # Safe default for Streamlit Community Cloud. Local scripts override this.
 headless = true
+# Avoid Streamlit Cloud scanning transformers optional vision modules
+# (which causes noisy torchvision import errors in logs).
+fileWatcherType = "none"

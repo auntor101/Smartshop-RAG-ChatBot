@@ -91,6 +91,8 @@ Use these app settings:
 
 Add `GROQ_API_KEY` in **App settings → Secrets**. Keep `AUTO_INGEST_ON_STARTUP=false` on Community Cloud so the page renders before heavy embedding work starts.
 
+In **Advanced settings**, choose **Python 3.11**. The embedding stack is tested on Python 3.11; newer runtimes may install packages that trigger optional `transformers`/`torchvision` import noise.
+
 ### REST API (local)
 
 ```bash
