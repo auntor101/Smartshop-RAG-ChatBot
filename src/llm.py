@@ -11,16 +11,26 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from .config import get_settings
 
 
+_PLACEHOLDERS = frozenset({
+    "your_groq_key_here",
+    "your_openai_key_here",
+})
+
+
+def _is_real_key(value: str | None) -> bool:
+    return bool(value) and value.strip() not in _PLACEHOLDERS
+
+
 def get_llm() -> BaseChatModel:
     """Build a chat model for the configured provider."""
     settings = get_settings()
     provider = settings.llm_provider.lower()
 
     if provider == "groq":
-        if not settings.groq_api_key:
+        if not _is_real_key(settings.groq_api_key):
             raise ValueError(
-                "GROQ_API_KEY is missing. Add it to your .env file or "
-                "switch LLM_PROVIDER to 'openai' or 'ollama'."
+                "GROQ_API_KEY is missing or still set to the placeholder value. "
+                "Set a real key in your environment or `.env` before running the app."
             )
         from langchain_groq import ChatGroq
 
@@ -32,8 +42,11 @@ def get_llm() -> BaseChatModel:
         )
 
     if provider == "openai":
-        if not settings.openai_api_key:
-            raise ValueError("OPENAI_API_KEY is missing in your .env file.")
+        if not _is_real_key(settings.openai_api_key):
+            raise ValueError(
+                "OPENAI_API_KEY is missing or still set to the placeholder value. "
+                "Set a real key in your environment or `.env` before running the app."
+            )
         from langchain_openai import ChatOpenAI
 
         return ChatOpenAI(

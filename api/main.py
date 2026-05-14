@@ -13,9 +13,10 @@ import logging
 from functools import lru_cache
 from pathlib import Path
 
-from fastapi import FastAPI, File, HTTPException, UploadFile, status
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from src.config import get_settings
 from src.ingest import ingest_uploaded_file, ingest_urls
@@ -41,6 +42,23 @@ logger = logging.getLogger("rag-api")
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
+security = HTTPBearer(auto_error=False)
+
+
+def require_api_token(
+    credentials: HTTPAuthorizationCredentials | None = Depends(security),
+) -> None:
+    """When ``API_TOKEN`` is set, require ``Authorization: Bearer <token>``."""
+    settings = get_settings()
+    if not settings.api_token:
+        return
+    if credentials is None or credentials.credentials != settings.api_token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or missing API token.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
 
 # ---------------------------------------------------------------------------
 # App setup
@@ -58,9 +76,10 @@ app = FastAPI(
     license_info={"name": "MIT"},
 )
 
+_cors_origins = get_settings().cors_origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_cors_origins,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -90,7 +109,12 @@ def health() -> HealthResponse:
     return HealthResponse()
 
 
-@app.get("/status", response_model=StatusResponse, tags=["meta"])
+@app.get(
+    "/status",
+    response_model=StatusResponse,
+    tags=["meta"],
+    dependencies=[Depends(require_api_token)],
+)
 def status_endpoint() -> StatusResponse:
     """Inspect the current configuration and how many vectors are stored."""
     s = get_settings()
@@ -115,6 +139,7 @@ def status_endpoint() -> StatusResponse:
     status_code=status.HTTP_201_CREATED,
     tags=["ingest"],
     summary="Upload one or more files (PDF / TXT / MD / DOCX) and add to the vector store.",
+    dependencies=[Depends(require_api_token)],
 )
 def ingest_files_endpoint(
     files: list[UploadFile] = File(..., description="Files to ingest."),
@@ -127,6 +152,12 @@ def ingest_files_endpoint(
     for upload in files:
         try:
             data = upload.file.read()
+            max_b = get_settings().max_upload_bytes
+            if len(data) > max_b:
+                raise HTTPException(
+                    status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                    detail=f"File exceeds maximum size of {max_b} bytes.",
+                )
             added = ingest_uploaded_file(upload.filename, data, DATA_DIR)
             total += added
             items.append(upload.filename)
@@ -148,8 +179,11 @@ def ingest_files_endpoint(
     status_code=status.HTTP_201_CREATED,
     tags=["ingest"],
     summary="Fetch one or more URLs, extract text, and add to the vector store.",
+    dependencies=[Depends(require_api_token)],
 )
-def ingest_urls_endpoint(payload: IngestUrlsRequest) -> IngestResponse:
+def ingest_urls_endpoint(
+    payload: IngestUrlsRequest,
+) -> IngestResponse:
     urls = [str(u) for u in payload.urls]
     try:
         added = ingest_urls(urls)
@@ -212,6 +246,7 @@ def chat_endpoint(
     response_model=MessageResponse,
     tags=["admin"],
     summary="Wipe every vector in the collection (irreversible).",
+    dependencies=[Depends(require_api_token)],
 )
 def reset_endpoint() -> MessageResponse:
     reset_collection()
