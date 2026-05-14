@@ -1,0 +1,7 @@
+# Local dev: open browser and skip usage-stats prompt noise.
+[browser]
+gatherUsageStats = false
+
+[server]
+# false = try to open a browser when you run Streamlit locally (Docker overrides with --server.headless=true).
+headless = false
