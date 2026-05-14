@@ -2,6 +2,13 @@
 
 from __future__ import annotations
 
+import os
+
+# See app.py: same Windows + Streamlit stderr issue when tqdm loads with transformers.
+os.environ.setdefault("TQDM_DISABLE", "1")
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+
 from functools import lru_cache
 
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -15,10 +22,9 @@ from .config import get_settings
 def get_embeddings() -> Embeddings:
     """Return cached embeddings.
 
-    HuggingFace sentence-transformers/all-MiniLM-L6-v2 is the default because it
-    gives fast local inference, has no API cost, and performs strongly across
-    multilingual support queries. OpenAI remains available as an explicit
-    fallback via EMBEDDING_PROVIDER=openai.
+    ``sentence-transformers/all-MiniLM-L6-v2`` is the default: fast local inference,
+    no embedding API cost, and solid general-purpose quality. OpenAI embeddings stay
+    available via ``EMBEDDING_PROVIDER=openai``.
     """
     settings = get_settings()
 
@@ -28,5 +34,5 @@ def get_embeddings() -> Embeddings:
     return HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2",
         model_kwargs={"device": "cpu"},
-        encode_kwargs={"normalize_embeddings": True},
+        encode_kwargs={"normalize_embeddings": True, "batch_size": 64},
     )

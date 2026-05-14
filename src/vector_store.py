@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 from typing import Iterable
 
+import chromadb
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
@@ -44,9 +45,16 @@ def reset_collection() -> None:
 
 
 def count_documents() -> int:
-    """Return the number of vectors currently stored."""
-    store = get_vector_store()
+    """Return the number of vectors currently stored.
+
+    Uses the Chroma persistent client only (no embedding model load). This keeps
+    Streamlit sidebars and boot checks fast; ``get_vector_store`` still loads
+    embeddings when ingesting or querying.
+    """
+    settings = get_settings()
     try:
-        return store._collection.count()  # noqa: SLF001 - Chroma exposes this only privately
+        client = chromadb.PersistentClient(path=str(settings.chroma_path))
+        coll = client.get_collection(settings.collection_name)
+        return int(coll.count())
     except Exception:  # noqa: BLE001
         return 0
