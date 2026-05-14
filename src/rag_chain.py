@@ -11,6 +11,7 @@ The pipeline:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
 
 from langchain_core.documents import Document
@@ -19,9 +20,12 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 
 from .config import get_settings
+from .keyword_retriever import get_keyword_retriever
 from .llm import get_llm
 from .prompts import build_condense_prompt, build_qa_prompt
 from .vector_store import get_vector_store
+
+DEFAULT_KB_DIR = Path(__file__).resolve().parent.parent / "data" / "shopsmart_docs"
 
 
 @dataclass
@@ -78,11 +82,15 @@ class RAGChatbot:
     def __init__(self) -> None:
         self.settings = get_settings()
         self.llm = get_llm()
-        self.vector_store = get_vector_store()
-        self.retriever = self.vector_store.as_retriever(
-            search_type="similarity",
-            search_kwargs={"k": self.settings.top_k},
-        )
+        if self.settings.retriever_provider == "chroma":
+            self.vector_store = get_vector_store()
+            self.retriever = self.vector_store.as_retriever(
+                search_type="similarity",
+                search_kwargs={"k": self.settings.top_k},
+            )
+        else:
+            self.vector_store = None
+            self.retriever = get_keyword_retriever(DEFAULT_KB_DIR, self.settings.top_k)
         self._qa_prompt = build_qa_prompt()
         self._condense_prompt = build_condense_prompt()
         self._condense_chain = (

@@ -20,6 +20,7 @@ import streamlit as st
 # These imports must come after that __init__ runs.
 from src.config import get_settings
 from src.ingest import ingest_path, ingest_uploaded_file, ingest_urls
+from src.keyword_retriever import clear_keyword_cache
 from src.rag_chain import RAGChatbot, build_chat_history
 from src.vector_store import count_documents, reset_collection
 
@@ -89,10 +90,11 @@ def render_sidebar() -> None:
         st.markdown(
             f"- **LLM provider:** `{settings.llm_provider}`\n"
             f"- **LLM model:** {_llm_caption(settings)}\n"
+            f"- **Retriever:** `{settings.retriever_provider}`\n"
             f"- **Embeddings:** `{settings.embedding_model.split('/')[-1]}`\n"
             f"- **Chunk size:** `{settings.chunk_size}` (overlap `{settings.chunk_overlap}`)\n"
             f"- **Top-K:** `{settings.top_k}`\n"
-            f"- **Vectors stored:** `{count_documents()}`"
+            f"- **Vectors stored:** `{count_documents() if settings.retriever_provider == 'chroma' else 'not used'}`"
         )
 
         st.divider()
@@ -133,7 +135,13 @@ def render_sidebar() -> None:
 
         st.divider()
         st.subheader("ShopSmart KB")
-        if st.button("Load ShopSmart Knowledge Base", use_container_width=True):
+        if settings.retriever_provider == "keyword":
+            st.success("ShopSmart KB is ready (fast keyword mode).")
+            if st.button("Reload bundled KB", use_container_width=True):
+                clear_keyword_cache()
+                get_chatbot.clear()
+                st.success("Bundled knowledge base cache cleared.")
+        elif st.button("Load ShopSmart Knowledge Base", use_container_width=True):
             with st.spinner("Indexing ShopSmart knowledge base..."):
                 try:
                     ingest_path(SHOPSMART_DOCS_DIR)
@@ -234,8 +242,11 @@ def render_chat() -> None:
     if not prompt:
         return
 
-    if count_documents() == 0:
-        st.warning("No documents have been ingested yet. Use the sidebar to add some.")
+    docs_ready = (
+        settings.retriever_provider == "keyword" and SHOPSMART_DOCS_DIR.exists()
+    ) or count_documents() > 0
+    if not docs_ready:
+        st.warning("No documents are available yet. Use the sidebar to add some.")
         return
 
     st.session_state.messages.append({"role": "user", "content": prompt})

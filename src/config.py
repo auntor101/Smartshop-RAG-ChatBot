@@ -38,6 +38,13 @@ class Settings(BaseSettings):
     ollama_model: str = "llama3.2"
 
     # ---- Embeddings ----
+    retriever_provider: Literal["keyword", "chroma"] = Field(
+        default="keyword",
+        description=(
+            "keyword is fast for the bundled ShopSmart docs; chroma enables "
+            "semantic search but loads local embedding models."
+        ),
+    )
     embedding_provider: Literal["huggingface", "openai"] = "huggingface"
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
 

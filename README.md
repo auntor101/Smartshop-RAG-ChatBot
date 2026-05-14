@@ -79,7 +79,7 @@ Start the Streamlit app:
 streamlit run app.py
 ```
 
-Open `http://localhost:8501`. Use **Load ShopSmart Knowledge Base** in the sidebar to index the bundled docs. Then ask questions such as "What is your return policy?"
+Open `http://localhost:8501`. By default the app uses fast keyword retrieval over the bundled ShopSmart docs, so you can ask questions right away. Set `RETRIEVER_PROVIDER=chroma` only if you want semantic search and accept slower first loads.
 
 ### Streamlit Community Cloud
 
@@ -89,7 +89,7 @@ Use these app settings:
 - Branch: `main`
 - Main file path: `app.py`
 
-Add `GROQ_API_KEY` in **App settings → Secrets**. Keep `AUTO_INGEST_ON_STARTUP=false` on Community Cloud so the page renders before heavy embedding work starts.
+Add `GROQ_API_KEY` in **App settings → Secrets**. Keep `RETRIEVER_PROVIDER=keyword` and `AUTO_INGEST_ON_STARTUP=false` on Community Cloud for the fastest load.
 
 In **Advanced settings**, choose **Python 3.11**. The embedding stack is tested on Python 3.11; newer runtimes may install packages that trigger optional `transformers`/`torchvision` import noise.
 
