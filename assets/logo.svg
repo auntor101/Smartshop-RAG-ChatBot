@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" role="img" aria-label="ShopSmart BD">
+  <defs>
+    
+  </defs>
+  
+  <g transform="translate(8,16)">
+    <path class="mark-bag" d="M10 22 L14 62 a6 6 0 0 0 6 6 h32 a6 6 0 0 0 6 -6 L62 22 Z"></path>
+    <path class="mark-handle" d="M22 24 v-6 a14 14 0 0 1 28 0 v6"></path>
+    
+    <path class="mark-bag" stroke-width="4" d="M28 42 a6 6 0 0 1 0 -10 h6 a6 6 0 0 1 0 12 h-6 a6 6 0 0 0 0 12 h6 a6 6 0 0 0 0 -10"></path>
+  </g>
+  
+  <text class="wm-name" x="92" y="58">ShopSmart</text>
+  <text class="wm-bd" x="252" y="58">BD</text>
+</svg>

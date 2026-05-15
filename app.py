@@ -163,16 +163,21 @@ def render_sidebar() -> None:
         )
         if uploaded and st.button("Ingest uploaded files", use_container_width=True):
             total_chunks = 0
+            # In keyword mode save uploads into the KB dir so the keyword retriever
+            # can find them; in chroma mode DATA_DIR is fine (only ChromaDB is queried).
+            upload_dir = SHOPSMART_DOCS_DIR if settings.retriever_provider == "keyword" else DATA_DIR
             for f in uploaded:
                 with st.spinner(f"Ingesting {f.name}..."):
                     try:
-                        added = ingest_uploaded_file(f.name, f.getvalue(), DATA_DIR)
+                        added = ingest_uploaded_file(f.name, f.getvalue(), upload_dir)
                         total_chunks += added
                         st.session_state.ingested_sources.append(f.name)
                     except Exception as exc:  # noqa: BLE001
                         st.error(f"Failed to ingest {f.name}: {exc}")
             if total_chunks:
                 st.success(f"Added {total_chunks} chunks across {len(uploaded)} file(s).")
+                if settings.retriever_provider == "keyword":
+                    clear_keyword_cache()
                 get_chatbot.clear()
 
         url_input = st.text_area(
@@ -278,7 +283,70 @@ def render_chat() -> None:
     )
 
 
+_STREAMLIT_BRAND_CSS = """
+/* --- Streamlit element overrides using brand tokens --- */
+.stApp { background: var(--bg-canvas) !important; }
+section[data-testid="stSidebar"] {
+    background: var(--bg-sunken) !important;
+    border-right: 1px solid var(--line) !important;
+}
+section[data-testid="stSidebar"] * { font-family: var(--font-body) !important; }
+
+/* Chat input */
+[data-testid="stChatInput"] textarea {
+    font-family: var(--font-body) !important;
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: var(--r-1) !important;
+}
+[data-testid="stChatInput"] textarea:focus {
+    border-color: var(--info) !important;
+    box-shadow: 0 0 0 3px var(--info-bg) !important;
+}
+
+/* User message bubbles */
+[data-testid="stChatMessageContent"] { font-family: var(--font-body) !important; }
+
+/* Primary buttons */
+button[kind="primary"], .stButton button[kind="primary"] {
+    background: var(--brand-red) !important;
+    border-color: var(--brand-red) !important;
+    font-family: var(--font-body) !important;
+    font-weight: 600 !important;
+}
+button[kind="primary"]:hover {
+    background: var(--brand-red-hover) !important;
+    border-color: var(--brand-red-hover) !important;
+}
+
+/* Headings */
+h1, h2, h3 { font-family: var(--font-display) !important; }
+
+/* Expander */
+[data-testid="stExpander"] {
+    border: 1px solid var(--line) !important;
+    border-radius: var(--r-2) !important;
+    background: var(--bg-surface) !important;
+}
+
+/* Divider */
+hr { background: var(--line) !important; }
+"""
+
+
+def _inject_brand_css() -> None:
+    css_path = Path(__file__).parent / "colors_and_type.css"
+    if not css_path.exists():
+        return
+    tokens = css_path.read_text(encoding="utf-8")
+    st.markdown(
+        f"<style>{tokens}\n{_STREAMLIT_BRAND_CSS}</style>",
+        unsafe_allow_html=True,
+    )
+
+
 def main() -> None:
+    _inject_brand_css()
     init_session_state()
     boot_error = ""
     settings = get_settings()

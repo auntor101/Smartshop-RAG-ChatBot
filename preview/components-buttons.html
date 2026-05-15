@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 24px 28px; background: var(--bg-canvas); }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn .ic { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); margin-top: 14px; }
+</style></head>
+<body>
+  <div class="row">
+    <button class="btn btn-primary">Place order</button>
+    <button class="btn btn-secondary">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      Add to cart
+    </button>
+    <button class="btn btn-ghost">Cancel</button>
+    <button class="btn btn-primary" disabled style="opacity:0.5;cursor:not-allowed">Loading…</button>
+  </div>
+  <div class="row" style="margin-top:14px">
+    <button class="btn btn-primary" style="height:32px;font-size:13px;padding:0 12px">Small</button>
+    <button class="btn btn-primary" style="height:48px;font-size:16px;padding:0 20px">Large</button>
+  </div>
+  <div class="lbl">Primary / Secondary / Ghost · 40px default · radius r-1 · hover lightens 4%, press scales 0.98</div>
+</body></html>

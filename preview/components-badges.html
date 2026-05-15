@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 24px 28px; background: var(--bg-canvas); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .row + .row { margin-top: 12px; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); margin-top: 14px; }
+</style></head>
+<body>
+  <div class="row">
+    <span class="chip success">● In stock</span>
+    <span class="chip warn">● Low stock — 3 left</span>
+    <span class="chip error">● Out of stock</span>
+    <span class="chip info">● Out for delivery</span>
+  </div>
+  <div class="row">
+    <span class="chip">Warranty 6 months</span>
+    <span class="chip">Warranty 1 month</span>
+    <span class="chip">No warranty</span>
+    <span class="chip">Free shipping over BDT 1000</span>
+    <span class="chip">COD · Dhaka only</span>
+  </div>
+  <div class="lbl">Status chips use semantic colors. Neutral chips use bg-sunken + line.</div>
+</body></html>

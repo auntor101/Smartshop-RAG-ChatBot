@@ -84,12 +84,32 @@ def test_ingest_urls_validates_payload(client: TestClient) -> None:
     assert response.status_code == 422
 
 
-def test_chat_returns_409_when_collection_empty(client: TestClient) -> None:
-    """If no docs are ingested, /chat should fail loudly with 409 - not 500."""
+def test_chat_returns_409_when_collection_empty_in_chroma_mode(
+    monkeypatch, client: TestClient
+) -> None:
+    """In chroma mode with no ingested docs, /chat should fail loudly with 409."""
+    monkeypatch.setenv("RETRIEVER_PROVIDER", "chroma")
+    from src.config import reset_settings
+
+    reset_settings()
     with patch("api.main.count_documents", return_value=0):
         response = client.post("/chat", json={"question": "hello", "history": []})
     assert response.status_code == 409
     assert "ingest" in response.json()["detail"].lower()
+
+
+def test_chat_returns_409_in_keyword_mode_without_kb_dir(
+    monkeypatch, client: TestClient
+) -> None:
+    """In keyword mode with no KB dir, /chat should fail with 409."""
+    monkeypatch.setenv("RETRIEVER_PROVIDER", "keyword")
+    from src.config import reset_settings
+
+    reset_settings()
+    with patch("api.main._KB_DIR") as mock_kb:
+        mock_kb.exists.return_value = False
+        response = client.post("/chat", json={"question": "hello", "history": []})
+    assert response.status_code == 409
 
 
 def test_chat_happy_path_with_mocked_llm(client: TestClient) -> None:

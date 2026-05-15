@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--bg-canvas); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card { background: var(--bg-surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 1px 2px rgba(31,27,22,0.06); overflow: hidden; }
+  .photo { background: var(--bg-sunken); display: flex; align-items: center; justify-content: center; aspect-ratio: 4/3; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .body { padding: 12px 14px; }
+  .name { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--ink-1); }
+  .meta { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+  .price { font-weight: 600; color: var(--ink-1); font-size: 14px; }
+  .cat { font-size: 11px; color: var(--ink-3); }
+</style></head>
+<body>
+  <div class="row">
+    <div class="card">
+      <div class="photo"><img src="../assets/photos/placeholder.svg" alt=""></div>
+      <div class="body">
+        <div class="name">SmartX Nova 5G Phone</div>
+        <div class="meta"><span class="price">BDT 24,990</span><span class="chip success">In stock</span></div>
+        <div class="cat" style="margin-top:6px">Electronics · 6-month warranty</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="photo"><img src="../assets/photos/placeholder.svg" alt=""></div>
+      <div class="body">
+        <div class="name">BeatPro Wireless Earbuds</div>
+        <div class="meta"><span class="price">BDT 3,490</span><span class="chip warn">Low — 3 left</span></div>
+        <div class="cat" style="margin-top:6px">Electronics · 6-month warranty</div>
+      </div>
+    </div>
+  </div>
+</body></html>

@@ -26,8 +26,9 @@ import argparse
 import logging
 import sys
 
+from src.config import get_settings
 from src.ingest import ingest_path, ingest_urls
-from src.rag_chain import RAGChatbot, build_chat_history
+from src.rag_chain import DEFAULT_KB_DIR, RAGChatbot, build_chat_history
 from src.vector_store import count_documents, reset_collection
 
 logging.basicConfig(
@@ -52,8 +53,12 @@ def cmd_ingest(args: argparse.Namespace) -> int:
 
 
 def cmd_chat(_: argparse.Namespace) -> int:
-    if count_documents() == 0:
+    settings = get_settings()
+    if settings.retriever_provider == "chroma" and count_documents() == 0:
         print("No documents have been ingested. Run `python cli.py ingest --path ./data` first.")
+        return 1
+    if settings.retriever_provider == "keyword" and not DEFAULT_KB_DIR.exists():
+        print(f"ShopSmart knowledge base directory not found: {DEFAULT_KB_DIR}")
         return 1
 
     print("RAG Chatbot ready. Type 'exit' or 'quit' to leave.\n")

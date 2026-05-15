@@ -65,9 +65,8 @@ def load_directory(directory: str | Path) -> list[Document]:
     return docs
 
 
-def load_url(url: str, timeout: int = 30) -> list[Document]:
-    """Fetch a URL and extract clean text."""
-    del timeout  # enforced via settings in fetch_url_bytes
+def load_url(url: str) -> list[Document]:
+    """Fetch a URL and extract clean text. Timeout is controlled by settings."""
     raw, final_url = fetch_url_bytes(url)
     text_html = raw.decode("utf-8", errors="replace")
 

@@ -41,6 +41,7 @@ logging.basicConfig(
 logger = logging.getLogger("rag-api")
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+_KB_DIR = DATA_DIR / "shopsmart_docs"
 
 security = HTTPBearer(auto_error=False)
 
@@ -209,13 +210,19 @@ def ingest_urls_endpoint(
 def chat_endpoint(
     payload: ChatRequest,
 ) -> ChatResponse:
-    if count_documents() == 0:
+    settings = get_settings()
+    if settings.retriever_provider == "chroma" and count_documents() == 0:
         raise HTTPException(
             status_code=409,
             detail=(
                 "No documents have been ingested yet. "
                 "Call POST /ingest/files or POST /ingest/urls first."
             ),
+        )
+    if settings.retriever_provider == "keyword" and not _KB_DIR.exists():
+        raise HTTPException(
+            status_code=409,
+            detail="ShopSmart knowledge base directory not found on the server.",
         )
 
     pairs: list[tuple[str, str]] = []

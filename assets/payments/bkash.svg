@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32" role="img" aria-label="bKash">
+  <rect width="64" height="32" rx="6" fill="#E2136E"></rect>
+  <text x="32" y="21" text-anchor="middle" font-family="Manrope, system-ui, sans-serif" font-weight="800" font-size="14" fill="#fff" letter-spacing="-0.02em">bKash</text>
+</svg>

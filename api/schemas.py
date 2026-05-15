@@ -33,6 +33,7 @@ class ChatRequest(BaseModel):
 
 class Source(BaseModel):
     source: str = Field(..., description="Filename or URL the chunk came from.")
+    filename: Optional[str] = Field(default=None, description="Original filename.")
     page: Optional[int] = Field(default=None, description="Zero-indexed page number for PDFs.")
     title: Optional[str] = Field(default=None, description="Document title or filename.")
     snippet: str = Field(..., description="First 300 chars of the supporting passage.")

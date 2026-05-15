@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--bg-canvas); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .item { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .bar { height: 36px; }
+  .body { padding: 8px 10px; background: var(--bg-surface); }
+  .name { font-family: var(--font-display); font-weight: 700; font-size: 12px; color: var(--ink-1); }
+  .hex  { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); }
+  .chip { display: inline-flex; height: 22px; padding: 0 10px; align-items: center; border-radius: 999px; font-size: 11px; font-weight: 600; margin-top: 6px; }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="item">
+      <div class="bar" style="background:#0E8C5A"></div>
+      <div class="body">
+        <div class="name">Success</div>
+        <div class="hex">#0E8C5A · bg #E2F1E8</div>
+        <span class="chip" style="background:#E2F1E8;color:#0E8C5A">In stock</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="bar" style="background:#F5A524"></div>
+      <div class="body">
+        <div class="name">Warn</div>
+        <div class="hex">#F5A524 · bg #FCEDD2</div>
+        <span class="chip" style="background:#FCEDD2;color:#8B5A0B">Low stock — 3 left</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="bar" style="background:#E63946"></div>
+      <div class="body">
+        <div class="name">Error</div>
+        <div class="hex">#E63946 · bg #FBE3E5</div>
+        <span class="chip" style="background:#FBE3E5;color:#E63946">Out of stock</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="bar" style="background:#2A6FDB"></div>
+      <div class="body">
+        <div class="name">Info</div>
+        <div class="hex">#2A6FDB · bg #DCE6F7</div>
+        <span class="chip" style="background:#DCE6F7;color:#2A6FDB">Tracking SMS sent</span>
+      </div>
+    </div>
+  </div>
+</body></html>

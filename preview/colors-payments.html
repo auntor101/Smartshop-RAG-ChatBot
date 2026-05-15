@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 22px 28px; background: var(--bg-canvas); }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .row img { height: 32px; display: block; }
+  .note { font-family: var(--font-body); font-size: 12px; color: var(--ink-3); margin-top: 12px; max-width: 600px; line-height: 1.5; }
+  .label { font-size: 11px; color: var(--ink-3); font-family: var(--font-mono); margin-right: 4px; }
+  .group { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; background: var(--bg-surface); border: 1px solid var(--line); border-radius: 6px; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="group"><img src="../assets/payments/bkash.svg" alt=""><span class="label">#E2136E</span></div>
+    <div class="group"><img src="../assets/payments/nagad.svg" alt=""><span class="label">#EC8E25</span></div>
+    <div class="group"><img src="../assets/payments/visa.svg" alt=""><span class="label">#1A1F71</span></div>
+    <div class="group"><img src="../assets/payments/mastercard.svg" alt=""><span class="label">#EB001B/#F79E1B</span></div>
+    <div class="group"><img src="../assets/payments/paypal.svg" alt=""><span class="label">#003087/#009CDE</span></div>
+    <div class="group"><img src="../assets/payments/cod.svg" alt=""><span class="label">Cash on Delivery · Dhaka only</span></div>
+  </div>
+  <div class="note">Payment brand colors are used <b>only on payment chips</b>. Never use bKash pink or Nagad orange as decoration — they belong to those brands.</div>
+</body></html>

@@ -1,0 +1,249 @@
+/* ============================================================
+   ShopSmart BD — Design Tokens
+   Single source of truth for color, type, spacing, radii,
+   shadows, motion. Load this on every page in the system.
+   ============================================================ */
+
+/* --- Webfonts (Google Fonts) ---------------------------------
+   Display: Manrope (700, 800)
+   Body:    Source Sans Pro (400, 600) — Streamlit-native
+   Mono:    JetBrains Mono (400, 600)
+   ------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  /* ---------- COLOR — brand ---------- */
+  --brand-red: #E63946;          /* primary action, Shira avatar ring */
+  --brand-red-hover: #D62F3C;
+  --brand-red-press: #BE2832;
+  --brand-deep: #1F1B16;         /* near-black with warm cast */
+  --brand-green: #0E8C5A;        /* success / in-stock / verified */
+  --brand-saffron: #F5A524;      /* promo / referral / warn-lean */
+  --brand-clay: #B85D3E;         /* warm secondary accent */
+
+  /* ---------- COLOR — neutrals (warm) ---------- */
+  --bg-canvas:  #FBF8F3;         /* page background — warm paper */
+  --bg-surface: #FFFFFF;         /* cards, inputs */
+  --bg-sunken:  #F2EDE4;         /* sidebar, sunken panels, code blocks */
+  --bg-soft:    #F7F2E9;         /* hover surface */
+  --ink-1: #1F1B16;
+  --ink-2: #4A453E;
+  --ink-3: #7A736A;
+  --ink-4: #A8A095;
+  --line:  #E8E0D2;
+  --line-strong: #D6CCB5;
+
+  /* ---------- COLOR — semantic ---------- */
+  --success: #0E8C5A;
+  --success-bg: #E2F1E8;
+  --warn: #F5A524;
+  --warn-bg: #FCEDD2;
+  --error: #E63946;
+  --error-bg: #FBE3E5;
+  --info: #2A6FDB;
+  --info-bg: #DCE6F7;
+
+  /* ---------- COLOR — payment brand (use only on payment chips) ---------- */
+  --pay-bkash: #E2136E;
+  --pay-nagad: #EC8E25;
+  --pay-visa:  #1A1F71;
+  --pay-mc-1:  #EB001B;
+  --pay-mc-2:  #F79E1B;
+  --pay-paypal-1: #003087;
+  --pay-paypal-2: #009CDE;
+
+  /* ---------- TYPE — families ---------- */
+  --font-display: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-body:    'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---------- TYPE — scale (rem base = 16) ---------- */
+  --fs-display-1: 56px;  --lh-display-1: 1.05;
+  --fs-display-2: 40px;  --lh-display-2: 1.10;
+  --fs-h1: 32px;         --lh-h1: 1.20;
+  --fs-h2: 24px;         --lh-h2: 1.30;
+  --fs-h3: 20px;         --lh-h3: 1.35;
+  --fs-body: 16px;       --lh-body: 1.50;
+  --fs-body-sm: 14px;    --lh-body-sm: 1.45;
+  --fs-mono: 14px;       --lh-mono: 1.50;
+  --fs-micro: 12px;      --lh-micro: 1.40;
+
+  /* ---------- SPACING (4-px base) ---------- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* ---------- RADII ---------- */
+  --r-1: 4px;            /* chips, inputs */
+  --r-2: 8px;            /* cards */
+  --r-3: 12px;           /* modals, chat bubbles */
+  --r-pill: 999px;
+
+  /* ---------- ELEVATION ---------- */
+  --e-1: 0 1px 2px rgba(31,27,22,0.06);
+  --e-2: 0 4px 12px rgba(31,27,22,0.08);
+  --e-3: 0 12px 32px rgba(31,27,22,0.12);
+
+  /* ---------- MOTION ---------- */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-fast: 120ms;
+  --t-base: 200ms;
+  --t-slow: 360ms;
+
+  /* ---------- LAYOUT ---------- */
+  --max-content: 1200px;
+  --max-chat:    820px;
+  --sidebar-w:   288px;
+}
+
+/* ============================================================
+   Semantic / base rules — apply these on body or via classes
+   so you get the brand by default with zero per-page setup.
+   ============================================================ */
+
+html, body {
+  background: var(--bg-canvas);
+  color: var(--ink-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: -0.01em;
+  color: var(--ink-1);
+  margin: 0;
+}
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: -0.005em;
+  color: var(--ink-1);
+  margin: 0;
+}
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  color: var(--ink-1);
+  margin: 0;
+}
+.display-1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-1);
+  line-height: var(--lh-display-1);
+  letter-spacing: -0.02em;
+  color: var(--ink-1);
+}
+.display-2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-display-2);
+  line-height: var(--lh-display-2);
+  letter-spacing: -0.015em;
+  color: var(--ink-1);
+}
+
+p, .body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink-2);
+  margin: 0;
+}
+.body-sm { font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); color: var(--ink-2); }
+.caption { font-size: var(--fs-body-sm); color: var(--ink-3); }
+.micro   { font-size: var(--fs-micro); line-height: var(--lh-micro); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); }
+
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  line-height: var(--lh-mono);
+  color: var(--ink-1);
+  background: var(--bg-sunken);
+  border-radius: var(--r-1);
+  padding: 1px 6px;
+}
+
+a { color: var(--brand-red); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+hr { border: 0; height: 1px; background: var(--line); margin: var(--s-5) 0; }
+
+:focus-visible {
+  outline: 2px solid var(--info);
+  outline-offset: 2px;
+  border-radius: var(--r-1);
+}
+
+/* ---------- Reusable components ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--s-2);
+  height: 40px; padding: 0 var(--s-4);
+  border-radius: var(--r-1);
+  font-family: var(--font-body); font-weight: 600; font-size: var(--fs-body-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+.btn-primary   { background: var(--brand-red); color: #fff; }
+.btn-primary:hover  { background: var(--brand-red-hover); }
+.btn-primary:active { background: var(--brand-red-press); transform: scale(0.98); }
+
+.btn-secondary { background: var(--bg-surface); color: var(--ink-1); border-color: var(--line); }
+.btn-secondary:hover { background: var(--bg-soft); border-color: var(--line-strong); }
+.btn-secondary:active { transform: scale(0.98); }
+
+.btn-ghost { background: transparent; color: var(--ink-1); }
+.btn-ghost:hover { background: var(--bg-soft); }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 24px; padding: 0 10px;
+  font-size: var(--fs-micro); font-weight: 600;
+  border-radius: var(--r-pill);
+  background: var(--bg-sunken); color: var(--ink-2);
+  border: 1px solid var(--line);
+}
+.chip.success { background: var(--success-bg); color: var(--success); border-color: transparent; }
+.chip.warn    { background: var(--warn-bg);    color: #8B5A0B;        border-color: transparent; }
+.chip.error   { background: var(--error-bg);   color: var(--error);   border-color: transparent; }
+.chip.info    { background: var(--info-bg);    color: var(--info);    border-color: transparent; }
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  box-shadow: var(--e-1);
+  padding: var(--s-5);
+}
+
+.input {
+  height: 40px; width: 100%;
+  padding: 0 var(--s-3);
+  font-family: var(--font-body); font-size: var(--fs-body);
+  color: var(--ink-1);
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-1);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+.input:focus { outline: none; border-color: var(--info); box-shadow: 0 0 0 3px var(--info-bg); }
+.input::placeholder { color: var(--ink-4); }

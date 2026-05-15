@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 28px; background: var(--bg-canvas); }
+  .row { display: flex; gap: 28px; align-items: center; }
+  .tok { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .box { width: 110px; height: 80px; border-radius: 8px; background: var(--bg-surface); border: 1px solid var(--line); }
+  .e1 { box-shadow: 0 1px 2px rgba(31,27,22,0.06); }
+  .e2 { box-shadow: 0 4px 12px rgba(31,27,22,0.08); }
+  .e3 { box-shadow: 0 12px 32px rgba(31,27,22,0.12); }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); text-align: center; }
+  .lbl b { color: var(--ink-1); display: block; font-weight: 600; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="tok"><div class="box e1"></div><div class="lbl"><b>e-1</b>0 1px 2px / 0.06<br>Resting card</div></div>
+    <div class="tok"><div class="box e2"></div><div class="lbl"><b>e-2</b>0 4px 12px / 0.08<br>Hover · dropdown</div></div>
+    <div class="tok"><div class="box e3"></div><div class="lbl"><b>e-3</b>0 12px 32px / 0.12<br>Modal · popover</div></div>
+  </div>
+</body></html>

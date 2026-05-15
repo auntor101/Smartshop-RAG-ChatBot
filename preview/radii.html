@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 24px 28px; background: var(--bg-canvas); }
+  .row { display: flex; gap: 18px; align-items: flex-end; }
+  .tok { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .box { width: 80px; height: 60px; background: var(--bg-surface); border: 1px solid var(--line); }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); }
+  .px  { font-family: var(--font-mono); font-size: 11px; color: var(--ink-1); font-weight: 600; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="tok"><div class="box" style="border-radius:4px"></div><div class="lbl">r-1 · chip, input</div><div class="px">4</div></div>
+    <div class="tok"><div class="box" style="border-radius:8px"></div><div class="lbl">r-2 · card</div><div class="px">8</div></div>
+    <div class="tok"><div class="box" style="border-radius:12px"></div><div class="lbl">r-3 · modal, bubble</div><div class="px">12</div></div>
+    <div class="tok"><div class="box" style="border-radius:999px"></div><div class="lbl">r-pill</div><div class="px">999</div></div>
+  </div>
+</body></html>

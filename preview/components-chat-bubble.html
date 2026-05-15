@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 18px 28px; background: var(--bg-canvas); display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+  .turn { display: flex; gap: 10px; align-items: flex-end; }
+  .turn.me { justify-content: flex-end; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-surface); border: 1px solid var(--line); padding: 2px; box-sizing: border-box; }
+  .bubble { padding: 10px 14px; border-radius: 12px; font-size: 15px; line-height: 1.45; max-width: 380px; }
+  .b-assist { background: var(--bg-sunken); color: var(--ink-1); border-bottom-left-radius: 4px; }
+  .b-me     { background: var(--brand-red); color: #fff; border-bottom-right-radius: 4px; }
+  .src-chip { font-size: 11px; font-weight: 600; color: var(--ink-3); margin-top: 6px; display: inline-flex; gap: 4px; align-items: center; }
+  .src-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-red); }
+</style></head>
+<body>
+  <div class="turn"><img class="avatar" src="../assets/shira-avatar.svg" alt="">
+    <div>
+      <div class="bubble b-assist">Hi! How can I help with your order today?</div>
+    </div>
+  </div>
+  <div class="turn me">
+    <div class="bubble b-me">Can I pay with bKash?</div>
+  </div>
+  <div class="turn"><img class="avatar" src="../assets/shira-avatar.svg" alt="">
+    <div>
+      <div class="bubble b-assist">Yes. You can pay securely with bKash or Nagad during checkout. Is there anything else I can help you with?</div>
+      <div class="src-chip"><span class="dot"></span>2 sources · faq.txt · policies.txt</div>
+    </div>
+  </div>
+</body></html>

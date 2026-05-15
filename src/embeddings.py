@@ -32,7 +32,7 @@ def get_embeddings() -> Embeddings:
         return OpenAIEmbeddings(model="text-embedding-3-small")
 
     return HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        model_name=settings.embedding_model,
         model_kwargs={"device": "cpu"},
         encode_kwargs={"normalize_embeddings": True, "batch_size": 64},
     )

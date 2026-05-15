@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-screen-label="Chatbot">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ShopSmart BD — Chat with Shira</title>
+  <link rel="icon" href="../../assets/mark.svg">
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <style>
+    * { box-sizing: border-box; }
+    html, body, #root { height: 100%; }
+    body { margin: 0; overflow: hidden; }
+
+    /* Message entrance — animate transform only so the bubble is visible
+       even if the animation never advances (frozen DocumentTimeline). */
+    .ss-row-in { animation: ss-in 280ms var(--ease) both; }
+    @keyframes ss-in {
+      from { transform: translateY(6px); }
+      to   { transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ss-row-in { animation: none; }
+    }
+
+    /* Typing indicator */
+    @keyframes ss-typing {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    /* Custom scrollbar — discreet */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--line-strong); }
+    ::-webkit-scrollbar-track { background: transparent; }
+
+    /* Selection */
+    ::selection { background: var(--error-bg); color: var(--ink-1); }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="responses.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="Icons.jsx"></script>
+  <script type="text/babel" src="ProductCard.jsx"></script>
+  <script type="text/babel" src="PaymentRow.jsx"></script>
+  <script type="text/babel" src="DeliveryCard.jsx"></script>
+  <script type="text/babel" src="Header.jsx"></script>
+  <script type="text/babel" src="Welcome.jsx"></script>
+  <script type="text/babel" src="Message.jsx"></script>
+  <script type="text/babel" src="Composer.jsx"></script>
+  <script type="text/babel" src="App.jsx"></script>
+</body>
+</html>
