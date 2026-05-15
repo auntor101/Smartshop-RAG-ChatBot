@@ -283,45 +283,38 @@ def render_chat() -> None:
     )
 
 
-_BRAND_CSS = """
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-/* ── Design tokens ─────────────────────────── */
+_BRAND_CSS = """<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap');
+
 :root {
-  --brand-red:        #E63946;
-  --brand-red-hover:  #D62F3C;
-  --bg-canvas:        #FBF8F3;
-  --bg-surface:       #FFFFFF;
-  --bg-sunken:        #F2EDE4;
-  --bg-soft:          #F7F2E9;
-  --ink-1:            #1F1B16;
-  --ink-2:            #4A453E;
-  --ink-3:            #7A736A;
-  --line:             #E8E0D2;
-  --line-strong:      #D6CCB5;
-  --info:             #2A6FDB;
-  --info-bg:          #DCE6F7;
-  --font-display:     'Manrope', system-ui, sans-serif;
-  --font-body:        'Source Sans 3', system-ui, sans-serif;
+  --brand-red:       #E63946;
+  --brand-red-hover: #D62F3C;
+  --bg-canvas:       #FBF8F3;
+  --bg-surface:      #FFFFFF;
+  --bg-sunken:       #F2EDE4;
+  --bg-soft:         #F7F2E9;
+  --ink-1:           #1F1B16;
+  --ink-2:           #4A453E;
+  --ink-3:           #7A736A;
+  --line:            #E8E0D2;
+  --line-strong:     #D6CCB5;
+  --info:            #2A6FDB;
+  --info-bg:         #DCE6F7;
+  --font-display:    'Manrope', system-ui, sans-serif;
+  --font-body:       'Source Sans 3', system-ui, sans-serif;
 }
 
-/* ── App shell ─────────────────────────────── */
-.stApp {
-  background-color: var(--bg-canvas) !important;
-}
-[data-testid="stHeader"] {
-  background-color: var(--bg-canvas) !important;
-}
+/* App + header background */
+.stApp { background-color: var(--bg-canvas) !important; }
+[data-testid="stHeader"] { background-color: var(--bg-canvas) !important; }
 
-/* ── Sidebar ───────────────────────────────── */
+/* Sidebar */
 section[data-testid="stSidebar"] > div:first-child {
   background-color: var(--bg-sunken) !important;
   border-right: 1px solid var(--line);
 }
 
-/* ── Headings — scoped to content areas only ─ */
+/* Headings — content areas only, not Streamlit chrome */
 [data-testid="stSidebar"] h1,
 [data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3,
@@ -337,7 +330,7 @@ section[data-testid="stSidebar"] > div:first-child {
   letter-spacing: -0.01em !important;
 }
 
-/* ── Body text ─────────────────────────────── */
+/* Body text */
 [data-testid="stMarkdownContainer"] p,
 [data-testid="stMarkdownContainer"] li,
 [data-testid="stCaptionContainer"],
@@ -346,12 +339,24 @@ section[data-testid="stSidebar"] > div:first-child {
   color: var(--ink-2) !important;
 }
 
-/* ── Buttons ───────────────────────────────── */
+/* All buttons — base */
 .stButton > button {
   font-family: var(--font-body) !important;
   font-weight: 600 !important;
   border-radius: 4px !important;
+  transition: background 120ms ease, border-color 120ms ease !important;
 }
+/* Primary (red) */
+.stButton > button[data-testid="baseButton-primary"] {
+  background-color: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+  color: #fff !important;
+}
+.stButton > button[data-testid="baseButton-primary"]:hover {
+  background-color: var(--brand-red-hover) !important;
+  border-color: var(--brand-red-hover) !important;
+}
+/* Secondary */
 .stButton > button[data-testid="baseButton-secondary"] {
   background-color: var(--bg-surface) !important;
   border: 1px solid var(--line) !important;
@@ -362,7 +367,7 @@ section[data-testid="stSidebar"] > div:first-child {
   border-color: var(--line-strong) !important;
 }
 
-/* ── Chat input ────────────────────────────── */
+/* Chat input */
 [data-testid="stChatInput"] textarea {
   font-family: var(--font-body) !important;
   color: var(--ink-1) !important;
@@ -371,11 +376,8 @@ section[data-testid="stSidebar"] > div:first-child {
   box-shadow: 0 0 0 2px var(--info-bg) !important;
 }
 
-/* ── Chat messages ─────────────────────────── */
-[data-testid="stChatMessage"] {
-  background-color: transparent !important;
-  border: none !important;
-}
+/* Chat messages */
+[data-testid="stChatMessage"] { background-color: transparent !important; border: none !important; }
 [data-testid="stChatMessageContent"] p {
   font-family: var(--font-body) !important;
   font-size: 15px !important;
@@ -383,26 +385,24 @@ section[data-testid="stSidebar"] > div:first-child {
   color: var(--ink-1) !important;
 }
 
-/* ── Expanders ─────────────────────────────── */
+/* Expanders */
 [data-testid="stExpander"] {
   border: 1px solid var(--line) !important;
   border-radius: 8px !important;
   overflow: hidden !important;
 }
 
-/* ── Alerts ────────────────────────────────── */
-[data-testid="stAlert"] p {
-  font-family: var(--font-body) !important;
-}
+/* Alerts */
+[data-testid="stAlert"] p { font-family: var(--font-body) !important; }
 
-/* ── File uploader ─────────────────────────── */
+/* File uploader */
 [data-testid="stFileUploaderDropzone"] {
   background-color: var(--bg-surface) !important;
   border: 1.5px dashed var(--line) !important;
   border-radius: 8px !important;
 }
 
-/* ── URL text area ─────────────────────────── */
+/* URL textarea */
 .stTextArea textarea {
   font-family: var(--font-body) !important;
   background-color: var(--bg-surface) !important;
@@ -413,8 +413,7 @@ section[data-testid="stSidebar"] > div:first-child {
   border-color: var(--info) !important;
   box-shadow: 0 0 0 2px var(--info-bg) !important;
 }
-</style>
-"""
+</style>"""
 
 
 def _inject_brand_css() -> None:
