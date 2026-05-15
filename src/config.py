@@ -1,9 +1,7 @@
 """Application configuration loaded from environment variables."""
 
-from __future__ import annotations
-
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -28,10 +26,10 @@ class Settings(BaseSettings):
         default="groq", description="Which LLM backend to use."
     )
 
-    groq_api_key: str | None = None
+    groq_api_key: Optional[str] = None
     groq_model: str = "llama-3.3-70b-versatile"
 
-    openai_api_key: str | None = None
+    openai_api_key: Optional[str] = None
     openai_model: str = "gpt-4o-mini"
 
     ollama_base_url: str = "http://localhost:11434"
@@ -60,11 +58,11 @@ class Settings(BaseSettings):
     max_tokens: int = 1024
 
     # ---- Security / deployment ----
-    admin_password: str | None = Field(
+    admin_password: Optional[str] = Field(
         default=None,
         description="If set, Streamlit admin actions require this password.",
     )
-    api_token: str | None = Field(
+    api_token: Optional[str] = Field(
         default=None,
         description="If set, FastAPI protects ingest/reset/status with Bearer token.",
     )

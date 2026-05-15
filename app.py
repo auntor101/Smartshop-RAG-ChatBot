@@ -283,66 +283,142 @@ def render_chat() -> None:
     )
 
 
-_STREAMLIT_BRAND_CSS = """
-/* --- Streamlit element overrides using brand tokens --- */
-.stApp { background: var(--bg-canvas) !important; }
-section[data-testid="stSidebar"] {
-    background: var(--bg-sunken) !important;
-    border-right: 1px solid var(--line) !important;
+_BRAND_CSS = """
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Design tokens ─────────────────────────── */
+:root {
+  --brand-red:        #E63946;
+  --brand-red-hover:  #D62F3C;
+  --bg-canvas:        #FBF8F3;
+  --bg-surface:       #FFFFFF;
+  --bg-sunken:        #F2EDE4;
+  --bg-soft:          #F7F2E9;
+  --ink-1:            #1F1B16;
+  --ink-2:            #4A453E;
+  --ink-3:            #7A736A;
+  --line:             #E8E0D2;
+  --line-strong:      #D6CCB5;
+  --info:             #2A6FDB;
+  --info-bg:          #DCE6F7;
+  --font-display:     'Manrope', system-ui, sans-serif;
+  --font-body:        'Source Sans 3', system-ui, sans-serif;
 }
-section[data-testid="stSidebar"] * { font-family: var(--font-body) !important; }
 
-/* Chat input */
+/* ── App shell ─────────────────────────────── */
+.stApp {
+  background-color: var(--bg-canvas) !important;
+}
+[data-testid="stHeader"] {
+  background-color: var(--bg-canvas) !important;
+}
+
+/* ── Sidebar ───────────────────────────────── */
+section[data-testid="stSidebar"] > div:first-child {
+  background-color: var(--bg-sunken) !important;
+  border-right: 1px solid var(--line);
+}
+
+/* ── Headings — scoped to content areas only ─ */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3,
+[data-testid="stHeadingWithActionElements"] h1,
+[data-testid="stHeadingWithActionElements"] h2,
+[data-testid="stHeadingWithActionElements"] h3 {
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  color: var(--ink-1) !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* ── Body text ─────────────────────────────── */
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stCaptionContainer"],
+.stCaption {
+  font-family: var(--font-body) !important;
+  color: var(--ink-2) !important;
+}
+
+/* ── Buttons ───────────────────────────────── */
+.stButton > button {
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  border-radius: 4px !important;
+}
+.stButton > button[data-testid="baseButton-secondary"] {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink-1) !important;
+}
+.stButton > button[data-testid="baseButton-secondary"]:hover {
+  background-color: var(--bg-soft) !important;
+  border-color: var(--line-strong) !important;
+}
+
+/* ── Chat input ────────────────────────────── */
 [data-testid="stChatInput"] textarea {
-    font-family: var(--font-body) !important;
-    background: var(--bg-surface) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: var(--r-1) !important;
+  font-family: var(--font-body) !important;
+  color: var(--ink-1) !important;
 }
 [data-testid="stChatInput"] textarea:focus {
-    border-color: var(--info) !important;
-    box-shadow: 0 0 0 3px var(--info-bg) !important;
+  box-shadow: 0 0 0 2px var(--info-bg) !important;
 }
 
-/* User message bubbles */
-[data-testid="stChatMessageContent"] { font-family: var(--font-body) !important; }
-
-/* Primary buttons */
-button[kind="primary"], .stButton button[kind="primary"] {
-    background: var(--brand-red) !important;
-    border-color: var(--brand-red) !important;
-    font-family: var(--font-body) !important;
-    font-weight: 600 !important;
+/* ── Chat messages ─────────────────────────── */
+[data-testid="stChatMessage"] {
+  background-color: transparent !important;
+  border: none !important;
 }
-button[kind="primary"]:hover {
-    background: var(--brand-red-hover) !important;
-    border-color: var(--brand-red-hover) !important;
+[data-testid="stChatMessageContent"] p {
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+  line-height: 1.55 !important;
+  color: var(--ink-1) !important;
 }
 
-/* Headings */
-h1, h2, h3 { font-family: var(--font-display) !important; }
-
-/* Expander */
+/* ── Expanders ─────────────────────────────── */
 [data-testid="stExpander"] {
-    border: 1px solid var(--line) !important;
-    border-radius: var(--r-2) !important;
-    background: var(--bg-surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
 }
 
-/* Divider */
-hr { background: var(--line) !important; }
+/* ── Alerts ────────────────────────────────── */
+[data-testid="stAlert"] p {
+  font-family: var(--font-body) !important;
+}
+
+/* ── File uploader ─────────────────────────── */
+[data-testid="stFileUploaderDropzone"] {
+  background-color: var(--bg-surface) !important;
+  border: 1.5px dashed var(--line) !important;
+  border-radius: 8px !important;
+}
+
+/* ── URL text area ─────────────────────────── */
+.stTextArea textarea {
+  font-family: var(--font-body) !important;
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 4px !important;
+}
+.stTextArea textarea:focus {
+  border-color: var(--info) !important;
+  box-shadow: 0 0 0 2px var(--info-bg) !important;
+}
+</style>
 """
 
 
 def _inject_brand_css() -> None:
-    css_path = Path(__file__).parent / "colors_and_type.css"
-    if not css_path.exists():
-        return
-    tokens = css_path.read_text(encoding="utf-8")
-    st.markdown(
-        f"<style>{tokens}\n{_STREAMLIT_BRAND_CSS}</style>",
-        unsafe_allow_html=True,
-    )
+    st.markdown(_BRAND_CSS, unsafe_allow_html=True)
 
 
 def main() -> None:
