@@ -18,4 +18,4 @@ python -m pip install -r (Join-Path $RepoRoot "requirements.txt") -q
 
 Write-Host "Starting Streamlit at http://localhost:8501 ..." -ForegroundColor Green
 # Blank line skips Streamlit first-run email prompt when stdin is not a TTY.
-cmd /c "echo.| python -m streamlit run app.py --server.headless false"
+cmd /c "echo.| python -m streamlit run streamlit/streamlit_app.py --server.headless false"

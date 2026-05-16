@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="Empty cart">
+  <g fill="none" stroke="#7A736A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 70 h12 l16 60 h64 l14 -40 h-72"></path>
+    <circle cx="108" cy="148" r="8"></circle>
+    <circle cx="156" cy="148" r="8"></circle>
+  </g>
+  <circle cx="170" cy="62" r="4" fill="#F5A524"></circle>
+  <circle cx="80" cy="48" r="3" fill="#E63946"></circle>
+  <text x="120" y="172" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" fill="#7A736A">Your cart is empty</text>
+</svg>

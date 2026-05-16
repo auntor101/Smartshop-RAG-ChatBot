@@ -1,0 +1,11 @@
+[theme]
+primaryColor        = "#E63946"   # brand-red — buttons, active borders, user bubbles
+backgroundColor     = "#FBF8F3"   # bg-canvas — warm paper
+secondaryBackgroundColor = "#F2EDE4"  # bg-sunken — assistant bubbles, sidebar
+textColor           = "#1F1B16"   # ink-1 — near-black with warm cast
+font                = "sans serif"
+
+[server]
+headless            = true
+enableCORS          = false
+enableXsrfProtection = true

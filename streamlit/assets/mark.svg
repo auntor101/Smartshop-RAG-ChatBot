@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="ShopSmart BD mark">
+  <g transform="translate(8,8)">
+    <path d="M6 20 L10 60 a6 6 0 0 0 6 6 h32 a6 6 0 0 0 6 -6 L54 20 Z" fill="none" stroke="#E63946" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M18 22 v-6 a14 14 0 0 1 28 0 v6" fill="none" stroke="#1F1B16" stroke-width="5" stroke-linecap="round"></path>
+    <path d="M24 40 a6 6 0 0 1 0 -10 h6 a6 6 0 0 1 0 12 h-6 a6 6 0 0 0 0 12 h6 a6 6 0 0 0 0 -10" fill="none" stroke="#E63946" stroke-width="4" stroke-linecap="round"></path>
+  </g>
+</svg>

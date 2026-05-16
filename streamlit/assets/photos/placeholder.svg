@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="Product photo placeholder">
+  <rect width="240" height="180" fill="#F2EDE4"></rect>
+  <rect x="0.5" y="0.5" width="239" height="179" fill="none" stroke="#E8E0D2"></rect>
+  <path d="M48 110 L96 70 L132 102 L172 70 L196 92 L196 138 L48 138 Z" fill="#E8E0D2"></path>
+  <circle cx="172" cy="56" r="10" fill="#E8E0D2"></circle>
+  <text x="120" y="160" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#A8A095" letter-spacing="0.08em">PHOTO PLACEHOLDER</text>
+</svg>

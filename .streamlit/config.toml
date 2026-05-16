@@ -1,10 +1,16 @@
-# Local dev: open browser and skip usage-stats prompt noise.
 [browser]
 gatherUsageStats = false
 
 [server]
-# Safe default for Streamlit Community Cloud. Local scripts override this.
 headless = true
-# Avoid Streamlit Cloud scanning transformers optional vision modules
-# (which causes noisy torchvision import errors in logs).
+# Avoid scanning optional transformers/torchvision modules on Streamlit Cloud.
 fileWatcherType = "none"
+enableCORS = false
+enableXsrfProtection = true
+
+[theme]
+primaryColor             = "#E63946"   # brand-red — buttons, active borders
+backgroundColor          = "#FBF8F3"   # bg-canvas — warm paper
+secondaryBackgroundColor = "#F2EDE4"   # bg-sunken — sidebar / assistant bubbles
+textColor                = "#1F1B16"   # ink-1 — near-black with warm cast
+font                     = "sans serif"
